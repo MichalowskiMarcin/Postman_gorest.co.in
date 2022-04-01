@@ -1,7 +1,7 @@
 # Postman_gorest.co.in
-The Rest API test written with Postman App.
+The <b>Rest API</b> test in <b>Postman App</b>.
 
-To run the test you will need a Bearer token, which you can generate at https://gorest.co.in/consumer/login and then paste into "insert Bearer token here" in main catalog GOREST.CO.IN in Authorization tab and save changes.
+To run the test you need a Bearer token, which you can generate at https://gorest.co.in/consumer/login and then paste into "insert Bearer token here" in main catalog GOREST.CO.IN in Authorization tab and save changes.
 
 ![image](https://user-images.githubusercontent.com/95912851/161243230-e8c09646-0eb9-46ad-8c59-018e31935344.png)
 
