@@ -1,0 +1,4303 @@
+{
+	"info": {
+		"_postman_id": "2490f165-a64b-4fb3-8d05-11ac81ebb8a8",
+		"name": "GOREST.CO.IN",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/public/v2/users",
+			"item": [
+				{
+					"name": "positive flow",
+					"item": [
+						{
+							"name": "create and delete user",
+							"item": [
+								{
+									"name": "create user with valid data",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"userID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User name check\", function () {\r",
+													"    pm.expect(jsonData.name).to.eql(\"Marian\");\r",
+													"});\r",
+													"pm.test(\"User email check\", function () {\r",
+													"    pm.expect(jsonData.email).to.eql(\"heheszkixdd@gmail.co.uk\");\r",
+													"});\r",
+													"pm.test(\"User gender check\", function () {\r",
+													"    pm.expect(jsonData.gender).to.eql(\"male\");\r",
+													"});\r",
+													"pm.test(\"User status check\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"inactive\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"heheszkixdd@gmail.co.uk\",\r\n    \"name\": \"Marian\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"inactive\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users/{{userID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users",
+												"{{userID}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "create update get delete user",
+							"item": [
+								{
+									"name": "full path - create user with valid data",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"userID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"pm.test(\"User name check\", function () {\r",
+													"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"name\"));\r",
+													"});\r",
+													"pm.test(\"User email check\", function () {\r",
+													"    pm.expect(jsonData.email).to.eql(pm.environment.get(\"email\"));\r",
+													"});\r",
+													"pm.test(\"User gender check\", function () {\r",
+													"    pm.expect(jsonData.gender).to.eql(pm.environment.get(\"gender\"));\r",
+													"});\r",
+													"pm.test(\"User status check\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(pm.environment.get(\"status\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"gender\": \"{{gender}}\",\r\n    \"status\": \"{{status}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "full path - get user by userID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"User name check\", function () {\r",
+													"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"name\"));\r",
+													"});\r",
+													"pm.test(\"User email check\", function () {\r",
+													"    pm.expect(jsonData.email).to.eql(pm.environment.get(\"email\"));\r",
+													"});\r",
+													"pm.test(\"User gender check\", function () {\r",
+													"    pm.expect(jsonData.gender).to.eql(pm.environment.get(\"gender\"));\r",
+													"});\r",
+													"pm.test(\"User status check\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(pm.environment.get(\"status\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users/{{userID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users",
+												"{{userID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "full path - update user data",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"userID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User name check\", function () {\r",
+													"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"modified_name\"));\r",
+													"});\r",
+													"pm.test(\"User gender check\", function () {\r",
+													"    pm.expect(jsonData.gender).to.eql(pm.environment.get(\"modified_gender\"));\r",
+													"});\r",
+													"pm.test(\"User status check\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(pm.environment.get(\"modified_status\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"{{modified_name}}\",\r\n    \"gender\": \"{{modified_gender}}\",\r\n    \"status\": \"{{modified_status}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users/{{userID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users",
+												"{{userID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "full path - get user by userID after update user data",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User name check\", function () {\r",
+													"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"modified_name\"));\r",
+													"});\r",
+													"pm.test(\"User email check\", function () {\r",
+													"    pm.expect(jsonData.email).to.eql(pm.environment.get(\"email\"));\r",
+													"});\r",
+													"pm.test(\"User gender check\", function () {\r",
+													"    pm.expect(jsonData.gender).to.eql(pm.environment.get(\"modified_gender\"));\r",
+													"});\r",
+													"pm.test(\"User status check\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(pm.environment.get(\"modified_status\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users/{{userID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users",
+												"{{userID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "full path - delete user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users/{{userID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users",
+												"{{userID}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"let name = \"Tadeusz\";",
+									"let email = \"deotadeo@buziaczek.pl\";",
+									"let gender = \"male\";",
+									"let status = \"active\";",
+									"",
+									"let modified_name = \"Edmunda\";",
+									"let modified_gender = \"female\";",
+									"let modified_status = \"inactive\";",
+									"",
+									"pm.environment.set(\"name\", name);",
+									"pm.environment.set(\"email\", email);",
+									"pm.environment.set(\"gender\", gender);",
+									"pm.environment.set(\"status\", status);",
+									"",
+									"pm.environment.set(\"modified_name\", modified_name);",
+									"pm.environment.set(\"modified_gender\", modified_gender);",
+									"pm.environment.set(\"modified_status\", modified_status);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "negative flow",
+					"item": [
+						{
+							"name": "incorrect user data",
+							"item": [
+								{
+									"name": "create user with invalid email",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"userID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 422\", function () {\r",
+													"    pm.response.to.have.status(422);\r",
+													"});\r",
+													"pm.test(\"Invalid email address\"), function () {\r",
+													"    pm.expect(json.message).to.eql(\"is invalid\")\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"heheszkixdd\",\r\n    \"name\": \"Marian\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"inactive\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create user with no name",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"userID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 422\", function () {\r",
+													"    pm.response.to.have.status(422);\r",
+													"});\r",
+													"pm.test(\"Field name can't be blank\"), function() {\r",
+													"    pm.expect(json.message).to.eql(\"can't be blank\")\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"heheszkixdd@gmail.co.uk\",\r\n    \"name\": \"\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"inactive\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create user with no  data",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"userID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 422\", function () {\r",
+													"    pm.response.to.have.status(422);\r",
+													"});\r",
+													"pm.test(\"Fields can't be blank\"), function() {\r",
+													"    pm.expect(json.message).to.eql(\"can't be blank\")\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"\",\r\n    \"name\": \"\",\r\n    \"gender\": \"\",\r\n    \"status\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create user with invalid gender",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"userID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 422\", function () {\r",
+													"    pm.response.to.have.status(422);\r",
+													"});\r",
+													"pm.test(\"Field gender can't be blank\"), function() {\r",
+													"    pm.expect(json.message).to.eql(\"can't be blank\")\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"heheszkixdd@gmail.co.uk\",\r\n    \"name\": \"Marian\",\r\n    \"gender\": \"shemale\",\r\n    \"status\": \"inactive\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create user with invalid status",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"userID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 422\", function () {\r",
+													"    pm.response.to.have.status(422);\r",
+													"});\r",
+													"pm.test(\"Field status can't be blank\"), function() {\r",
+													"    pm.expect(json.message).to.eql(\"can't be blank\")\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"heheszkixdd@gmail.co.uk\",\r\n    \"name\": \"Marian\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"deactive\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "authentication issues",
+							"item": [
+								{
+									"name": "create user with invalid token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"pm.test(\"Message Authentication failed is displayed\"), function() {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Authentication failed\");\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "6b84488fba72614f44e2231a146a4bf0fc2d0126805cd7eda4979c456a6a4c80",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"heheszkixdd@gmail.co.uk\",\r\n    \"name\": \"Marian\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"inactive\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create user without token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"pm.test(\"Message Authentication failed is displayed\"), function() {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Authentication failed\");\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"heheszkixdd@gmail.co.uk\",\r\n    \"name\": \"Marian\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"inactive\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create user with other token method",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"pm.test(\"Message Authentication failed is displayed\"), function() {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Authentication failed\");\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "dasdas",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "asdas",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"heheszkixdd@gmail.co.uk\",\r\n    \"name\": \"Marian\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"inactive\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"auth": {
+								"type": "noauth"
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "invalid request method",
+							"item": [
+								{
+									"name": "patch method on get users endpoint",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "options method on get users endpoint",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "OPTIONS",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete method on get users endpoint",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "put method on get users endpoint",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "post method on patch users endpoint",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"{{modified_name}}\",\r\n    \"gender\": \"{{modified_gender}}\",\r\n    \"status\": \"{{modified_status}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users/{{userID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users",
+												"{{userID}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "GET user list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{baseURL}}/public/v2/users",
+							"protocol": "https",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/public/v2/posts",
+			"item": [
+				{
+					"name": "positive flow",
+					"item": [
+						{
+							"name": "create and delete post",
+							"item": [
+								{
+									"name": "create user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"userID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User name check\", function () {\r",
+													"    pm.expect(jsonData.name).to.eql(\"Marian\");\r",
+													"});\r",
+													"pm.test(\"User email check\", function () {\r",
+													"    pm.expect(jsonData.email).to.eql(\"heheszkixdd@gmail.co.uk\");\r",
+													"});\r",
+													"pm.test(\"User gender check\", function () {\r",
+													"    pm.expect(jsonData.gender).to.eql(\"male\");\r",
+													"});\r",
+													"pm.test(\"User status check\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"inactive\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"heheszkixdd@gmail.co.uk\",\r\n    \"name\": \"Marian\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"inactive\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create new post",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"postID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"pm.test(\"User ID checked\"), function() {\r",
+													"    pm.expect(jsonData.user_id).to.eql(pm.environment(userID));\r",
+													"}\r",
+													"pm.test(\"Post title checked\"), function() {\r",
+													"    pm.expect(jsonData.title).to.eql(pm.environment(title));\r",
+													"}\r",
+													"pm.test(\"Post body checked\"), function() {\r",
+													"    pm.expect(jsonData.body).to.eql(pm.environment(body));\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n        \"user_id\": {{userID}},\r\n        \"title\": \"{{title}}\",\r\n        \"body\": \"{{body}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get post by postID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"User ID checked\"), function() {\r",
+													"    pm.expect(jsonData.user_id).to.eql(pm.environment(userID));\r",
+													"}\r",
+													"pm.test(\"Post title check\", function () {\r",
+													"    pm.expect(jsonData.title).to.eql(pm.environment.get(\"title\"));\r",
+													"});\r",
+													"pm.test(\"Post body check\", function () {\r",
+													"    pm.expect(jsonData.body).to.eql(pm.environment.get(\"body\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts/{{postID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts",
+												"{{postID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete post",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts/{{postID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts",
+												"{{postID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users/{{userID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users",
+												"{{userID}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "create update and delete post",
+							"item": [
+								{
+									"name": "create user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"userID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User name check\", function () {\r",
+													"    pm.expect(jsonData.name).to.eql(\"Marian\");\r",
+													"});\r",
+													"pm.test(\"User email check\", function () {\r",
+													"    pm.expect(jsonData.email).to.eql(\"heheszkixdd@gmail.co.uk\");\r",
+													"});\r",
+													"pm.test(\"User gender check\", function () {\r",
+													"    pm.expect(jsonData.gender).to.eql(\"male\");\r",
+													"});\r",
+													"pm.test(\"User status check\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"inactive\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"heheszkixdd@gmail.co.uk\",\r\n    \"name\": \"Marian\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"inactive\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create new post",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"postID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"pm.test(\"User ID checked\"), function() {\r",
+													"    pm.expect(jsonData.user_id).to.eql(pm.environment(userID));\r",
+													"}\r",
+													"pm.test(\"Post title checked\"), function() {\r",
+													"    pm.expect(jsonData.title).to.eql(pm.environment(title));\r",
+													"}\r",
+													"pm.test(\"Post body checked\"), function() {\r",
+													"    pm.expect(jsonData.body).to.eql(pm.environment(body));\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n        \"id\": 2044,\r\n        \"user_id\": {{userID}},\r\n        \"title\": \"{{title}}\",\r\n        \"body\": \"{{body}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get post by postID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"User ID checked\"), function() {\r",
+													"    pm.expect(jsonData.user_id).to.eql(pm.environment(userID));\r",
+													"}\r",
+													"pm.test(\"Post title check\", function () {\r",
+													"    pm.expect(jsonData.title).to.eql(pm.environment.get(\"title\"));\r",
+													"});\r",
+													"pm.test(\"Post body check\", function () {\r",
+													"    pm.expect(jsonData.body).to.eql(pm.environment.get(\"body\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts/{{postID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts",
+												"{{postID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "update post",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"postID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Post title checked\"), function() {\r",
+													"    pm.expect(jsonData.title).to.eql(pm.environment(modified_title));\r",
+													"}\r",
+													"pm.test(\"Post body checked\"), function() {\r",
+													"    pm.expect(jsonData.body).to.eql(pm.environment(modified_body));\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"title\": \"{{modified_title}}\",\r\n    \"body\": \"{{modified_body}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts/{{postID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts",
+												"{{postID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get post by postID after update",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"Post title checked\", function () {\r",
+													"    pm.expect(jsonData.title).to.eql(pm.environment.get(\"modified_title\"));\r",
+													"});\r",
+													"pm.test(\"Post body checked\", function () {\r",
+													"    pm.expect(jsonData.body).to.eql(pm.environment.get(\"modified_body\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts/{{postID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts",
+												"{{postID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete post",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts/{{postID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts",
+												"{{postID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users/{{userID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users",
+												"{{userID}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"let title = \"To jest tytuł\";",
+											"let body = \"A to jest treść wiadomości\";",
+											"",
+											"pm.environment.set(\"title\", title);",
+											"pm.environment.set(\"body\", body);"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"let title = \"To jest tytuł\";",
+									"let body = \"To jest treść wiadomości\";",
+									"",
+									"let modified_title = \"To jest tytuł po modyfikacji\"",
+									"let modified_body = \"To jest tekst po modyfikacji\"",
+									"",
+									"pm.environment.set(\"title\", title);",
+									"pm.environment.set(\"body\", body);",
+									"",
+									"pm.environment.set(\"modified_title\", modified_title);",
+									"pm.environment.set(\"modified_body\", modified_body);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "negative flow",
+					"item": [
+						{
+							"name": "incorrect post data",
+							"item": [
+								{
+									"name": "create new post without create new user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"postID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 422\", function () {\r",
+													"    pm.response.to.have.status(422);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n        \"user_id\": {{userID}},\r\n        \"title\": \"{{title}}\",\r\n        \"body\": \"{{body}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create new post without data",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"postID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 422\", function () {\r",
+													"    pm.response.to.have.status(422);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create new post by exist user without body",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"postID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 422\", function () {\r",
+													"    pm.response.to.have.status(422);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n        \"user_id\": 123,\r\n        \"title\" : \"Tytuł\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create new post by exist user without title",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"postID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 422\", function () {\r",
+													"    pm.response.to.have.status(422);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n        \"user_id\": 123,\r\n        \"body\" : \"Example text\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "authentication issues",
+							"item": [
+								{
+									"name": "create post with invalid token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"pm.test(\"Message Authentication failed is displayed\"), function() {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Authentication failed\");\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "6b84488fba72614f44e2231a146a4bf0fc2d0126805cd7eda4979c456a6a4c80",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n        \"user_id\": {{userID}},\r\n        \"title\": \"{{title}}\",\r\n        \"body\": \"{{body}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create post without token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"pm.test(\"Message Authentication failed is displayed\"), function() {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Authentication failed\");\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n        \"user_id\": {{userID}},\r\n        \"title\": \"{{title}}\",\r\n        \"body\": \"{{body}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create post with other token method",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"pm.test(\"Message Authentication failed is displayed\"), function() {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Authentication failed\");\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "dasdas",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "asdas",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n        \"user_id\": {{userID}},\r\n        \"title\": \"{{title}}\",\r\n        \"body\": \"{{body}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"auth": {
+								"type": "noauth"
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "invalid request method",
+							"item": [
+								{
+									"name": "patch method on get posts endpoint",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "options method on get posts endpoint",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "OPTIONS",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete method on get posts endpoint",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "put method on get posts endpoint",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "post method on patch patch endpoint",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"{{modified_name}}\",\r\n    \"gender\": \"{{modified_gender}}\",\r\n    \"status\": \"{{modified_status}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users/{{postID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users",
+												"{{postID}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "GET post list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{baseURL}}/public/v2/posts",
+							"protocol": "https",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/public/v2/comments",
+			"item": [
+				{
+					"name": "positive flow",
+					"item": [
+						{
+							"name": "create and delete comment",
+							"item": [
+								{
+									"name": "create user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"userID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User name check\", function () {\r",
+													"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"name\"));\r",
+													"});\r",
+													"pm.test(\"User email check\", function () {\r",
+													"    pm.expect(jsonData.email).to.eql(pm.environment.get(\"email\"));\r",
+													"});\r",
+													"pm.test(\"User gender check\", function () {\r",
+													"    pm.expect(jsonData.gender).to.eql(pm.environment.get(\"gender\"));\r",
+													"});\r",
+													"pm.test(\"User status check\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(pm.environment.get(\"status\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"name\": \"{{name}}\",\r\n    \"gender\": \"{{gender}}\",\r\n    \"status\": \"{{status}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create new post",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"postID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"pm.test(\"User ID checked\"), function() {\r",
+													"    pm.expect(jsonData.user_id).to.eql(pm.environment(user_id));\r",
+													"}\r",
+													"pm.test(\"Post title checked\"), function() {\r",
+													"    pm.expect(jsonData.title).to.eql(pm.environment(title));\r",
+													"}\r",
+													"pm.test(\"Post body checked\"), function() {\r",
+													"    pm.expect(jsonData.body).to.eql(pm.environment(body));\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n        \"user_id\": {{userID}},\r\n        \"title\": \"{{title}}\",\r\n        \"body\": \"{{body}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create comment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"commentID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"pm.test(\"Post ID checked\"), function() {\r",
+													"    pm.expect(jsonData.post_id).to.eql(pm.environment(postID));\r",
+													"}\r",
+													"pm.test(\"User name checked\"), function() {\r",
+													"    pm.expect(jsonData.name).to.eql(pm.environment(name));\r",
+													"}\r",
+													"pm.test(\"User email checked\"), function() {\r",
+													"    pm.expect(jsonData.email).to.eql(pm.environment(email));\r",
+													"}\r",
+													"pm.test(\"Comment body checked\"), function() {\r",
+													"    pm.expect(jsonData.body).to.eql(pm.environment(body));\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"post_id\": {{postID}},\r\n        \"name\": \"{{name}}\",\r\n        \"email\": \"{{email}}\",\r\n        \"body\": \"{{body}}\"\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/comments",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"comments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get comment by commentID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"Post ID checked\"), function() {\r",
+													"    pm.expect(jsonData.post_id).to.eql(pm.environment(postID));\r",
+													"}\r",
+													"pm.test(\"User name checked\"), function() {\r",
+													"    pm.expect(jsonData.name).to.eql(pm.environment(name));\r",
+													"}\r",
+													"pm.test(\"User email checked\"), function() {\r",
+													"    pm.expect(jsonData.email).to.eql(pm.environment(email));\r",
+													"}\r",
+													"pm.test(\"Comment body checked\"), function() {\r",
+													"    pm.expect(jsonData.body).to.eql(pm.environment(body));\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/comments/{{commentID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"comments",
+												"{{commentID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete comment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/comments/{{commentID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"comments",
+												"{{commentID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete post",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts/{{postID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts",
+												"{{postID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users/{{userID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users",
+												"{{userID}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "create update and delete comment",
+							"item": [
+								{
+									"name": "create user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"userID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User name check\", function () {\r",
+													"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"name\"));\r",
+													"});\r",
+													"pm.test(\"User email check\", function () {\r",
+													"    pm.expect(jsonData.email).to.eql(pm.environment.get(\"email\"));\r",
+													"});\r",
+													"pm.test(\"User gender check\", function () {\r",
+													"    pm.expect(jsonData.gender).to.eql(pm.environment.get(\"gender\"));\r",
+													"});\r",
+													"pm.test(\"User status check\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(pm.environment.get(\"status\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"name\": \"{{name}}\",\r\n    \"gender\": \"{{gender}}\",\r\n    \"status\": \"{{status}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create new post",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"postID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"pm.test(\"User ID checked\"), function() {\r",
+													"    pm.expect(jsonData.user_id).to.eql(pm.environment(user_id));\r",
+													"}\r",
+													"pm.test(\"Post title checked\"), function() {\r",
+													"    pm.expect(jsonData.title).to.eql(pm.environment(title));\r",
+													"}\r",
+													"pm.test(\"Post body checked\"), function() {\r",
+													"    pm.expect(jsonData.body).to.eql(pm.environment(body));\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n        \"user_id\": {{userID}},\r\n        \"title\": \"{{title}}\",\r\n        \"body\": \"{{body}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create comment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"commentID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"pm.test(\"Post ID checked\"), function() {\r",
+													"    pm.expect(jsonData.post_id).to.eql(pm.environment(postID));\r",
+													"}\r",
+													"pm.test(\"User name checked\"), function() {\r",
+													"    pm.expect(jsonData.name).to.eql(pm.environment(name));\r",
+													"}\r",
+													"pm.test(\"User email checked\"), function() {\r",
+													"    pm.expect(jsonData.email).to.eql(pm.environment(email));\r",
+													"}\r",
+													"pm.test(\"Comment body checked\"), function() {\r",
+													"    pm.expect(jsonData.body).to.eql(pm.environment(body));\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"post_id\": {{postID}},\r\n        \"name\": \"{{name}}\",\r\n        \"email\": \"{{email}}\",\r\n        \"body\": \"{{body}}\"\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/comments",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"comments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get comment by commentID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"Post ID checked\"), function() {\r",
+													"    pm.expect(jsonData.post_id).to.eql(pm.environment(postID));\r",
+													"}\r",
+													"pm.test(\"User name checked\"), function() {\r",
+													"    pm.expect(jsonData.name).to.eql(pm.environment(name));\r",
+													"}\r",
+													"pm.test(\"User email checked\"), function() {\r",
+													"    pm.expect(jsonData.email).to.eql(pm.environment(email));\r",
+													"}\r",
+													"pm.test(\"Comment body checked\"), function() {\r",
+													"    pm.expect(jsonData.body).to.eql(pm.environment(body));\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/comments/{{commentID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"comments",
+												"{{commentID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "update comment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"commentID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"Post ID checked\"), function() {\r",
+													"    pm.expect(jsonData.post_id).to.eql(pm.environment(postID));\r",
+													"}\r",
+													"pm.test(\"User name checked\"), function() {\r",
+													"    pm.expect(jsonData.name).to.eql(pm.environment(name));\r",
+													"}\r",
+													"pm.test(\"User email checked\"), function() {\r",
+													"    pm.expect(jsonData.email).to.eql(pm.environment(email));\r",
+													"}\r",
+													"pm.test(\"Comment body checked\"), function() {\r",
+													"    pm.expect(jsonData.body).to.eql(pm.environment(modified_body));\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"body\": \"{{modified_body}}\"\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/comments/{{commentID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"comments",
+												"{{commentID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get comment after update by commentID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"Post ID checked\"), function() {\r",
+													"    pm.expect(jsonData.post_id).to.eql(pm.environment(postID));\r",
+													"}\r",
+													"pm.test(\"User name checked\"), function() {\r",
+													"    pm.expect(jsonData.name).to.eql(pm.environment(name));\r",
+													"}\r",
+													"pm.test(\"User email checked\"), function() {\r",
+													"    pm.expect(jsonData.email).to.eql(pm.environment(email));\r",
+													"}\r",
+													"pm.test(\"Comment body checked\"), function() {\r",
+													"    pm.expect(jsonData.body).to.eql(pm.environment(body));\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/comments/{{commentID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"comments",
+												"{{commentID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete comment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/comments/{{commentID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"comments",
+												"{{commentID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete post",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/posts/{{postID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"posts",
+												"{{postID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users/{{userID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users",
+												"{{userID}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"let body = \"To jest komentarz do postu\";",
+									"",
+									"let modified_body = \"To jest komentarz do postu po modyfikacji\";",
+									"",
+									"pm.environment.set(\"body\", body);",
+									"pm.environment.set(\"modified_body\", modified_body);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "negative flow",
+					"item": [
+						{
+							"name": "authentication issues",
+							"item": [
+								{
+									"name": "create comment with invalid token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"pm.test(\"Message Authentication failed is displayed\"), function() {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Authentication failed\");\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "6b84488fba72614f44e2231a146a4bf0fc2d0126805cd7eda4979c456a6a4c80",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"post_id\": {{postID}},\r\n        \"name\": \"{{name}}\",\r\n        \"email\": \"{{email}}\",\r\n        \"body\": \"{{body}}\"\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/comments",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"comments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create comment without token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"pm.test(\"Message Authentication failed is displayed\"), function() {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Authentication failed\");\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"post_id\": {{postID}},\r\n        \"name\": \"{{name}}\",\r\n        \"email\": \"{{email}}\",\r\n        \"body\": \"{{body}}\"\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/comments",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"comments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create comment with other token method",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"pm.test(\"Message Authentication failed is displayed\"), function() {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Authentication failed\");\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "dasdas",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "asdas",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"post_id\": {{postID}},\r\n        \"name\": \"{{name}}\",\r\n        \"email\": \"{{email}}\",\r\n        \"body\": \"{{body}}\"\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/comments",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"comments"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"auth": {
+								"type": "noauth"
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "GET comment list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{baseURL}}/public/v2/comments",
+							"protocol": "https",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/public/v2/todos",
+			"item": [
+				{
+					"name": "positive flow",
+					"item": [
+						{
+							"name": "create and delete todos",
+							"item": [
+								{
+									"name": "create user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"userID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User name check\", function () {\r",
+													"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"name\"));\r",
+													"});\r",
+													"pm.test(\"User email check\", function () {\r",
+													"    pm.expect(jsonData.email).to.eql(pm.environment.get(\"email\"));\r",
+													"});\r",
+													"pm.test(\"User gender check\", function () {\r",
+													"    pm.expect(jsonData.gender).to.eql(pm.environment.get(\"gender\"));\r",
+													"});\r",
+													"pm.test(\"User status check\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(pm.environment.get(\"status\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"name\": \"{{name}}\",\r\n    \"gender\": \"{{gender}}\",\r\n    \"status\": \"{{status}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create new todos",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"todosID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"pm.test(\"User ID checked\"), function() {\r",
+													"    pm.expect(jsonData.user_id).to.eql(pm.environment(user_id));\r",
+													"}\r",
+													"pm.test(\"Todos title checked\"), function() {\r",
+													"    pm.expect(jsonData.title).to.eql(pm.environment(title));\r",
+													"}\r",
+													"pm.test(\"Todos due_on checked\"), function() {\r",
+													"    pm.expect(jsonData.due_on).to.eql(pm.environment(due_on));\r",
+													"}\r",
+													"pm.test(\"Todos status checked\"), function() {\r",
+													"    pm.expect(jsonData.status).to.eql(pm.environment(todosStatus))\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"user_id\": {{userID}},\r\n        \"title\": \"{{todosTitle}}\",\r\n        \"due_on\": \"{{due_on}}\",\r\n        \"status\": \"{{todosStatus}}\"\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/todos",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"todos"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get todos by todosID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"todosID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"User ID checked\"), function() {\r",
+													"    pm.expect(jsonData.user_id).to.eql(pm.environment(user_id));\r",
+													"}\r",
+													"pm.test(\"Todos title checked\"), function() {\r",
+													"    pm.expect(jsonData.title).to.eql(pm.environment(todosTitle));\r",
+													"}\r",
+													"pm.test(\"Todos due_on checked\"), function() {\r",
+													"    pm.expect(jsonData.due_on).to.eql(pm.environment(due_on));\r",
+													"}\r",
+													"pm.test(\"Todos status checked\"), function() {\r",
+													"    pm.expect(jsonData.status).to.eql(pm.environment(todosStatus))\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/todos/{{todosID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"todos",
+												"{{todosID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete todos",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/todos/{{todosID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"todos",
+												"{{todosID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users/{{userID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users",
+												"{{userID}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "create update and delete todos",
+							"item": [
+								{
+									"name": "create user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"userID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User name check\", function () {\r",
+													"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"name\"));\r",
+													"});\r",
+													"pm.test(\"User email check\", function () {\r",
+													"    pm.expect(jsonData.email).to.eql(pm.environment.get(\"email\"));\r",
+													"});\r",
+													"pm.test(\"User gender check\", function () {\r",
+													"    pm.expect(jsonData.gender).to.eql(pm.environment.get(\"gender\"));\r",
+													"});\r",
+													"pm.test(\"User status check\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(pm.environment.get(\"status\"));\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"name\": \"{{name}}\",\r\n    \"gender\": \"{{gender}}\",\r\n    \"status\": \"{{status}}\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create new todos",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"todosID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 201\", function () {\r",
+													"    pm.response.to.have.status(201);\r",
+													"});\r",
+													"pm.test(\"User ID checked\"), function() {\r",
+													"    pm.expect(jsonData.user_id).to.eql(pm.environment(user_id));\r",
+													"}\r",
+													"pm.test(\"Todos title checked\"), function() {\r",
+													"    pm.expect(jsonData.title).to.eql(pm.environment(todosTitle));\r",
+													"}\r",
+													"pm.test(\"Todos due_on checked\"), function() {\r",
+													"    pm.expect(jsonData.due_on).to.eql(pm.environment(due_on));\r",
+													"}\r",
+													"pm.test(\"Todos status checked\"), function() {\r",
+													"    pm.expect(jsonData.status).to.eql(pm.environment(todosStatus))\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"user_id\": {{userID}},\r\n        \"title\": \"{{todosTitle}}\",\r\n        \"due_on\": \"{{due_on}}\",\r\n        \"status\": \"{{todosStatus}}\"\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/todos",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"todos"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get todos by todosID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"todosID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"User ID checked\"), function() {\r",
+													"    pm.expect(jsonData.user_id).to.eql(pm.environment(user_id));\r",
+													"}\r",
+													"pm.test(\"Todos title checked\"), function() {\r",
+													"    pm.expect(jsonData.title).to.eql(pm.environment(todosTitle));\r",
+													"}\r",
+													"pm.test(\"Todos due_on checked\"), function() {\r",
+													"    pm.expect(jsonData.due_on).to.eql(pm.environment(due_on));\r",
+													"}\r",
+													"pm.test(\"Todos status checked\"), function() {\r",
+													"    pm.expect(jsonData.status).to.eql(pm.environment(todosStatus))\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/todos/{{todosID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"todos",
+												"{{todosID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "update todos",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"todosID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"Todos title checked\"), function() {\r",
+													"    pm.expect(jsonData.title).to.eql(pm.environment(modified_todosTitle));\r",
+													"}\r",
+													"pm.test(\"Todos due_on checked\"), function() {\r",
+													"    pm.expect(jsonData.due_on).to.eql(pm.environment(modified_due_on));\r",
+													"}\r",
+													"pm.test(\"Todos status checked\"), function() {\r",
+													"    pm.expect(jsonData.status).to.eql(pm.environment(modified_todosStatus));\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"title\": \"{{modified_todosTitle}}\",\r\n        \"due_on\": \"{{modified_due_on}}\",\r\n        \"status\": \"{{modified_todosStatus}}\"\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/todos/{{todosID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"todos",
+												"{{todosID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "get todos after update by todosID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"todosID\", jsonData.id);\r",
+													"\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"Todos title checked\"), function() {\r",
+													"    pm.expect(jsonData.title).to.eql(pm.environment(modified_todosTitle));\r",
+													"}\r",
+													"pm.test(\"Todos due_on checked\"), function() {\r",
+													"    pm.expect(jsonData.due_on).to.eql(pm.environment(modified_due_on));\r",
+													"}\r",
+													"pm.test(\"Todos status checked\"), function() {\r",
+													"    pm.expect(jsonData.status).to.eql(pm.environment(modified_todosStatus));\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/todos/{{todosID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"todos",
+												"{{todosID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete todos",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/todos/{{todosID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"todos",
+												"{{todosID}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 204\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/users/{{userID}}",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"users",
+												"{{userID}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"let todosTitle = \"To jest mój pierwszy todos\";",
+									"let due_on = \"2022-03-27T00:00:00.000+05:30\";",
+									"let todosStatus = \"completed\";",
+									"",
+									"let modified_todosTitle = \"To jest todos po modyfikacji\";",
+									"let modified_due_on = \"3100-03-31T12:23:45.000\";",
+									"let modified_todosStatus = \"pending\";",
+									"",
+									"pm.environment.set(\"todosTitle\", todosTitle);",
+									"pm.environment.set(\"due_on\", due_on);",
+									"pm.environment.set(\"todosStatus\", todosStatus);",
+									"",
+									"pm.environment.set(\"modified_todosTitle\", modified_todosTitle);",
+									"pm.environment.set(\"modified_due_on\", modified_due_on);",
+									"pm.environment.set(\"modified_todosStatus\", modified_todosStatus);"
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "negative flow",
+					"item": [
+						{
+							"name": "authentication issues",
+							"item": [
+								{
+									"name": "create new todos with invalid token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"pm.test(\"Message Authentication failed is displayed\"), function() {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Authentication failed\");\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "6b84488fba72614f44e2231a146a4bf0fc2d0126805cd7eda4979c456a6a4c80",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"user_id\": {{userID}},\r\n        \"title\": \"{{todosTitle}}\",\r\n        \"due_on\": \"{{due_on}}\",\r\n        \"status\": \"{{todosStatus}}\"\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/todos",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"todos"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create new todos without token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"pm.test(\"Message Authentication failed is displayed\"), function() {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Authentication failed\");\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"user_id\": {{userID}},\r\n        \"title\": \"{{todosTitle}}\",\r\n        \"due_on\": \"{{due_on}}\",\r\n        \"status\": \"{{todosStatus}}\"\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/todos",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"todos"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "create new todos with other token method",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"pm.test(\"Message Authentication failed is displayed\"), function() {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Authentication failed\");\r",
+													"}"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "    {\r\n        \"user_id\": {{userID}},\r\n        \"title\": \"{{todosTitle}}\",\r\n        \"due_on\": \"{{due_on}}\",\r\n        \"status\": \"{{todosStatus}}\"\r\n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://{{baseURL}}/public/v2/todos",
+											"protocol": "https",
+											"host": [
+												"{{baseURL}}"
+											],
+											"path": [
+												"public",
+												"v2",
+												"todos"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"auth": {
+								"type": "noauth"
+							},
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "GET todos list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{baseURL}}/public/v2/todos",
+							"protocol": "https",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"public",
+								"v2",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "insert Bearer token here",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
